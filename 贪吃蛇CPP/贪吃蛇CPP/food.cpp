@@ -3,6 +3,11 @@
 //初始化列表
 Food::Food(Wall& tmpwall):wall(tmpwall)
 {
+	
+}
+
+void Food::setFood()
+{
 	while (1)
 	{
 		//食物的随机位置
@@ -17,7 +22,4 @@ Food::Food(Wall& tmpwall):wall(tmpwall)
 	}
 }
 
-void Food::setFood()
-{
-
-}
+Food::~Food() {}

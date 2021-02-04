@@ -1,6 +1,7 @@
 #ifndef _SNAKE_HEAD
 #define _SNAKE_HEAD
 #include "wall.h"
+#include "food.h"
 #include<iostream>
 using namespace std;
 
@@ -19,7 +20,15 @@ struct Point
 class Snake
 {
 public:
-	Snake(Wall& tmpwall);
+	enum
+	{
+		UP = 'w',
+		DOWN = 's',
+		LEFT = 'a',
+		RIGHT = 'd'
+	};
+
+	Snake(Wall& tmpwall, Food& tmpfood);
 
 	~Snake();
 
@@ -31,10 +40,18 @@ public:
 	//添加蛇节点
 	void addPoint(int x, int y);
 
+	//移动蛇
+	bool move(char key);
+
+	//删除尾节点
+	void delPoint();
+
 private:
 	//蛇头结点
 	Point* pHead;
 	Wall& wall;
+	Food& food;
+	bool rool = false;
 };
 
 #endif // !_SNAKE_HEAD

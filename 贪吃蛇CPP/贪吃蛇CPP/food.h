@@ -8,7 +8,7 @@ class Food
 {
 public:
 	Food(Wall& tmpwall);
-
+	~Food();
 	void setFood();
 
 private:
