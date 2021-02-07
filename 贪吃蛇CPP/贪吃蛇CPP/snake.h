@@ -3,18 +3,19 @@
 #include "wall.h"
 #include "food.h"
 #include<iostream>
+#include<list>
 using namespace std;
 
 
-struct Point
-{
-	//数据域
-	int x;
-	int y;
-
-	//指针域
-	Point* next;
-};
+//struct Point
+//{
+//	//数据域
+//	int x;
+//	int y;
+//
+//	//指针域
+//	Point* next;
+//};
 
 
 class Snake
@@ -48,7 +49,8 @@ public:
 
 private:
 	//蛇头结点
-	Point* pHead;
+	//Point* pHead;
+	list<pair<int, int>> lSnake;
 	Wall& wall;
 	Food& food;
 	bool rool = false;
