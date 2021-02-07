@@ -146,6 +146,8 @@
   <ItemGroup>
     <ClCompile Include="food.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="InfoFile.cpp" />
+    <ClCompile Include="infoFile.h" />
     <ClCompile Include="snake.cpp" />
     <ClCompile Include="wall.cpp" />
   </ItemGroup>

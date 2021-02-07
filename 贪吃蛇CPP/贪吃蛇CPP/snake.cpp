@@ -2,7 +2,7 @@
 
 Snake::Snake(Wall& tmpwall, Food& tmpfood):wall(tmpwall), food(tmpfood)
 {
-	//pHead = NULL;
+	pHead = NULL;
 }
 
 void Snake::InitSnake()
@@ -19,48 +19,48 @@ void Snake::InitSnake()
 //销毁蛇
 void Snake::destorySnake()
 {
-	/*Point* pCur = pHead;
+	Point* pcur = pHead;
 	while (pHead != NULL)
 	{
-		pCur = pHead->next;
+		pcur = pHead->next;
 		delete pHead;
-		pHead = pCur;
-	}*/
-	while (lSnake.empty() != true)
-	{
-		//将数组中字符设为" "
-		pair<int, int> p = lSnake.front();
-		lSnake.pop_front();
+		pHead = pcur;
 	}
+	//while (lSnake.empty() != true)
+	//{
+	//	//将数组中字符设为" "
+	//	pair<int, int> p = lSnake.front();
+	//	lSnake.pop_front();
+	//}
 }
 
 //添加蛇节点
 void Snake::addPoint(int x, int y)
 {
 	//创建新节点
-	//Point* newP = new Point;
-	//if (newP == NULL)
-	//{
-	//	return;
-	//}
+	Point* newP = new Point;
+	if (newP == NULL)
+	{
+		return;
+	}
 
-	////新节点赋值
-	//newP->x = x;
-	//newP->y = y;
-	//newP->next = NULL;
+	//新节点赋值
+	newP->x = x;
+	newP->y = y;
+	newP->next = NULL;
 
-	//if (pHead != NULL)
-	//{
-	//	//设置当前头节点为身子
-	//	wall.setWall(pHead->x, pHead->y, '=');
-	//}
+	if (pHead != NULL)
+	{
+		//设置当前头节点为身子
+		wall.setWall(pHead->x, pHead->y, '=');
+	}
 
-	////新的节点添加至链表头部
-	//newP->next = pHead;
-	//pHead = newP;
-	//wall.setWall(pHead->x, pHead->y, '@');
+	//新的节点添加至链表头部
+	newP->next = pHead;
+	pHead = newP;
+	wall.setWall(pHead->x, pHead->y, '@');
 
-	pair<int, int> p;
+	/*pair<int, int> p;
 	p.first = x;
 	p.second = y;
 	if (lSnake.empty() != true)
@@ -71,18 +71,18 @@ void Snake::addPoint(int x, int y)
 
 	lSnake.push_front(make_pair(x,y));
 	p = lSnake.front();
-	wall.setWall(p.first, p.second, '@');
+	wall.setWall(p.first, p.second, '@');*/
 }
 
 //移动蛇  成功移动与失败移动
 bool Snake::move(char key)
 {
-	/*int x = pHead->x;
-	int y = pHead->y;*/
+	int x = pHead->x;
+	int y = pHead->y;
 
-	pair<int, int> p = lSnake.front();
+	/*pair<int, int> p = lSnake.front();
 	int x = p.first;
-	int y = p.second;
+	int y = p.second;*/
 
 	switch (key)
 	{
@@ -103,24 +103,24 @@ bool Snake::move(char key)
 	}
 
 	//判断身体是否吃掉尾巴
-	//Point* pre = pHead;
-	//Point* cur = pHead->next;
-	////找到尾节点
-	//while (cur->next != NULL)
-	//{
-	//	pre = pre->next;
-	//	cur = pre->next;
-	//}
-
-	pair<int, int> cur = lSnake.back(); //蛇尾
-	if (cur.first == x && cur.second == y)
+	Point* pre = pHead;
+	Point* cur = pHead->next;
+	//找到尾节点
+	while (cur->next != NULL)
 	{
-		rool = true;
+		pre = pre->next;
+		cur = pre->next;
 	}
-	//if (cur->x == x && cur->y == y)
+
+	//pair<int, int> cur = lSnake.back(); //蛇尾
+	//if (cur.first == x && cur.second == y)
 	//{
-	//	rool = true; //rool表示是否是循环状态
+	//	rool = true;
 	//}
+	if (cur->x == x && cur->y == y)
+	{
+		rool = true; //rool表示是否是循环状态
+	}
 	else
 	{
 		if (wall.getWall(x, y) == '=' || wall.getWall(x, y) == '*')
@@ -130,6 +130,7 @@ bool Snake::move(char key)
 			system("cls");
 			wall.draw();
 			cout << "Game Over!" << endl;
+			cout << "得分：" << getScore() << endl;
 			return false;
 		}
 	}
@@ -153,8 +154,7 @@ bool Snake::move(char key)
 			//正常移动
 			addPoint(x, y);
 			delPoint();
-		}
-		
+		}	
 	}
 	return true;
 }
@@ -162,31 +162,131 @@ bool Snake::move(char key)
 //删除尾节点
 void Snake::delPoint()
 {
-	pair<int, int> p = lSnake.back();
+	/*pair<int, int> p = lSnake.back();
 	wall.setWall(p.first, p.second, ' ');
-	lSnake.pop_back();
+	lSnake.pop_back();*/
 
 	//两个节点以上删除
-	//if (pHead == NULL || pHead->next == NULL)
-	//{
-	//	return;
-	//}
+	if (pHead == NULL || pHead->next == NULL)
+	{
+		return;
+	}
 
-	////用两个临时节点，一个是前一个节点pre，一个是当前节点cur
-	//Point* pre = pHead;
-	//Point* cur = pHead->next;
+	//用两个临时节点，一个是前一个节点pre，一个是当前节点cur
+	Point* pre = pHead;
+	Point* cur = pHead->next;
 
-	//while (cur->next != NULL)
-	//{
-	//	pre = pre->next;
-	//	cur = pre->next;
-	//}
+	while (cur->next != NULL)
+	{
+		pre = pre->next;
+		cur = pre->next;
+	}
 
-	////尾节点修改内容
-	//wall.setWall(cur->x, cur->y, ' ');
-	//delete cur;
-	//cur = NULL;
-	//pre->next = NULL;
+	//尾节点修改内容
+	wall.setWall(cur->x, cur->y, ' ');
+	delete cur;
+	cur = NULL;
+	pre->next = NULL;
+}
+
+//获取蛇的移动时间，改变游戏速度
+int Snake::getSleepTime()
+{
+	int sTime = 0;
+	int size = countList();
+
+	if (size < 5)
+	{
+		sTime = 300;
+	}
+	else if (size >= 5 && size <= 100)
+	{
+		sTime = 200;
+	}
+	else
+	{
+		sTime = 100;
+	}
+	return sTime;
+}
+
+//获取蛇的长度
+int Snake::countList()
+{
+	int size = 0;
+	Point* curP = pHead;
+	while (curP != NULL)
+	{
+		size++;
+		curP = curP->next;
+	}
+	return size;
+}
+
+//获取分数
+int Snake::getScore()
+{
+	int score = 0;
+	int size = countList();
+	score = (size - 3) * 100;
+	return score;
+}
+
+
+//保存
+void Snake::saveGame(char key)
+{
+	InfoFile file;
+	//方向
+	file.key = key;
+
+	//食物坐标
+	file.foodX = food.getFoodX();
+	file.foodY = food.getFoodY();
+	
+	//蛇长度
+	file.num = countList();
+
+	//蛇节点
+	Point* pCur = pHead;
+	for (int i = 0; i < file.num; i++)
+	{
+		file.snakeX[i] = pCur->x;
+		file.snakeY[i] = pCur->y;
+		pCur = pCur->next;
+	}
+
+	file.saveInfo();
+}
+
+//读取
+void Snake::readGame(char* key)
+{
+	wall.InitWall();
+
+	InfoFile file;
+	file.readInfo();
+
+	*key = file.key;
+
+	wall.setWall(file.foodX, file.foodY, '#');
+
+	//获取蛇
+	if (pHead != NULL)
+	{
+		destorySnake();
+		pHead = NULL;
+	}
+
+	//蛇长
+	int num = file.num;
+
+	//设置节点
+	for (int i = 0; i < num; i++)
+	{
+		addPoint(file.snakeX[num - 1 - i], file.snakeY[num - 1 - i]);
+	}
+
 }
 
 Snake::~Snake(){}

@@ -22,4 +22,15 @@ void Food::setFood()
 	}
 }
 
+int Food::getFoodX()
+{
+	return this->foodX;
+}
+
+
+int Food::getFoodY()
+{
+	return this->foodY;
+}
+
 Food::~Food() {}

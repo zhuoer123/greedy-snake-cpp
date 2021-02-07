@@ -7,6 +7,28 @@
 #include<windows.h>
 using namespace std;
 
+int pauseScreen()
+{
+	int ret = -1;
+	while (true)
+	{
+		system("cls");
+		cout << "1.继续游戏" << endl;
+		cout << "2.保存游戏" << endl;
+		cout << "3.读取游戏存档" << endl;
+		cout << "0.退出游戏" << endl;
+		cout << "请输入操作：" << endl;
+
+		cin >> ret;
+		if (ret == 0 || ret == 1 || ret == 2 || ret == 3)
+		{
+			return ret;
+		}
+
+		cin.clear(); //重置错误输入
+		cin.sync();  //清空缓冲区
+	}
+}
 
 int main()
 {
@@ -21,6 +43,8 @@ int main()
 	snake.InitSnake();
 
 	wall.draw();
+	
+	cout << "得分：" << snake.getScore() << endl;
 
 	bool isDead = false;
 	//上一步按键
@@ -51,11 +75,43 @@ int main()
 				{
 					system("cls");
 					wall.draw();
-					Sleep(300);
+					cout << "得分：" << snake.getScore() << endl;
+					Sleep(snake.getSleepTime());  //睡眠
 				}
 				else
 				{
 					isDead = true;
+					break;
+				}
+			}
+			else if(key == ' ')
+			{
+				int userSelect = pauseScreen();
+				switch (userSelect)
+				{
+				case 1: //继续
+					system("cls");
+					wall.draw();
+					cout << "得分：" << snake.getScore() << endl;
+					key = preKey;
+					break;
+				case 2: //保存
+					snake.saveGame(preKey);
+					system("cls");
+					cout << "存档完成！" << endl;
+					system("pause");
+					break;
+				case 3: //读取
+					snake.readGame(&key);
+					preKey = key;
+					system("cls");
+					wall.draw();
+					cout << "得分：" << snake.getScore() << endl;
+					break;
+				case 0: //退出
+					exit(0);
+					break;
+				default:
 					break;
 				}
 			}

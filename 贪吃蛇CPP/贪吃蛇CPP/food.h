@@ -11,6 +11,9 @@ public:
 	~Food();
 	void setFood();
 
+	int getFoodX();
+	int getFoodY();
+
 private:
 	int foodX;
 	int foodY;

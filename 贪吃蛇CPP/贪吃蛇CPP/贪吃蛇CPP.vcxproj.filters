@@ -38,5 +38,11 @@
     <ClCompile Include="food.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="infoFile.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
