@@ -4,6 +4,8 @@
 #include "wall.h"
 #include "food.h"
 #include "infoFile.h"
+#include<conio.h>
+#include<windows.h>
 #include<iostream>
 //#include<list>
 using namespace std;

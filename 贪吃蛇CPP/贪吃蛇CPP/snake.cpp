@@ -1,5 +1,15 @@
 #include "snake.h"
 
+//光标移动
+void gotoxy(HANDLE hout, int x, int y)
+{
+	COORD pos;
+	pos.X = x; //横坐标
+	pos.Y = y; //纵坐标
+	SetConsoleCursorPosition(hout, pos);
+}
+HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE); //定义显示器句柄变量
+
 Snake::Snake(Wall& tmpwall, Food& tmpfood):wall(tmpwall), food(tmpfood)
 {
 	pHead = NULL;
@@ -53,12 +63,16 @@ void Snake::addPoint(int x, int y)
 	{
 		//设置当前头节点为身子
 		wall.setWall(pHead->x, pHead->y, '=');
+		gotoxy(hout, pHead->y * 2, pHead->x);
+		cout << "=";
 	}
 
 	//新的节点添加至链表头部
 	newP->next = pHead;
 	pHead = newP;
 	wall.setWall(pHead->x, pHead->y, '@');
+	gotoxy(hout, pHead->y * 2, pHead->x);
+	cout << "@";
 
 	/*pair<int, int> p;
 	p.first = x;
@@ -147,6 +161,8 @@ bool Snake::move(char key)
 			addPoint(x, y);
 			delPoint();
 			wall.setWall(x,y,'@');
+			gotoxy(hout, y * 2, x);
+			cout << "@";
 		}
 		//未吃到食物
 		else
@@ -184,6 +200,9 @@ void Snake::delPoint()
 
 	//尾节点修改内容
 	wall.setWall(cur->x, cur->y, ' ');
+	gotoxy(hout,cur->y * 2, cur->x);
+	cout << ' ';
+
 	delete cur;
 	cur = NULL;
 	pre->next = NULL;
@@ -288,5 +307,7 @@ void Snake::readGame(char* key)
 	}
 
 }
+
+
 
 Snake::~Snake(){}

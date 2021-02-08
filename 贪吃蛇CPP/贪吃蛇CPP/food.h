@@ -2,6 +2,8 @@
 #define _FOOD_HEAD
 #include<iostream>
 #include "wall.h"
+#include<conio.h>
+#include<Windows.h>
 using namespace std;
 
 class Food
@@ -9,6 +11,7 @@ class Food
 public:
 	Food(Wall& tmpwall);
 	~Food();
+	
 	void setFood();
 
 	int getFoodX();

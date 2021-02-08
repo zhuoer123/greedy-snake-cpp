@@ -7,6 +7,16 @@
 #include<windows.h>
 using namespace std;
 
+//光标移动
+void gotoxy3(HANDLE houtMain, int x, int y)
+{
+	COORD pos;
+	pos.X = x; //横坐标
+	pos.Y = y; //纵坐标
+	SetConsoleCursorPosition(houtMain, pos);
+}
+HANDLE houtMain = GetStdHandle(STD_OUTPUT_HANDLE); //定义显示器句柄变量
+
 int pauseScreen()
 {
 	int ret = -1;
@@ -35,6 +45,7 @@ int main()
 	srand((unsigned int)time(NULL));
 	Wall wall;
 	wall.InitWall();	
+	wall.draw();
 	
 	Food food(wall);	
 	food.setFood();
@@ -42,8 +53,7 @@ int main()
 	Snake snake(wall, food);
 	snake.InitSnake();
 
-	wall.draw();
-	
+	gotoxy3(houtMain, 0, wall.ROW);
 	cout << "得分：" << snake.getScore() << endl;
 
 	bool isDead = false;
@@ -73,8 +83,9 @@ int main()
 				}
 				if (snake.move(key) == true)
 				{
-					system("cls");
-					wall.draw();
+					/*system("cls");
+					wall.draw();*/
+					gotoxy3(houtMain, 0, wall.ROW);
 					cout << "得分：" << snake.getScore() << endl;
 					Sleep(snake.getSleepTime());  //睡眠
 				}
